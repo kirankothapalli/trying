@@ -1,0 +1,12 @@
+const nodemailer = require('nodemailer');
+const createTransporter = () => nodemailer.createTransporter({ host:process.env.EMAIL_HOST, port:parseInt(process.env.EMAIL_PORT)||587, secure:process.env.EMAIL_PORT==='465', auth:{ user:process.env.EMAIL_USER, pass:process.env.EMAIL_PASS } });
+const sendEmail = async ({ to, subject, html, text }) => {
+  const transporter = createTransporter();
+  return transporter.sendMail({ from:`ShopSphere <${process.env.EMAIL_FROM||process.env.EMAIL_USER}>`, to, subject, html, text:text||html.replace(/<[^>]*>/g,'') });
+};
+const emailTemplates = {
+  verification: (name, token, url) => ({ subject:'Verify your ShopSphere email', html:`<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto"><div style="background:linear-gradient(135deg,#1a1a2e,#16213e);padding:30px;text-align:center"><h1 style="color:#e94560;margin:0">ShopSphere</h1></div><div style="background:white;padding:30px"><h2>Hello ${name}!</h2><p>Please verify your email:</p><div style="text-align:center;margin:30px 0"><a href="${url}/verify-email/${token}" style="background:#e94560;color:white;padding:14px 30px;border-radius:6px;text-decoration:none;font-weight:bold">Verify Email</a></div></div></div>` }),
+  passwordReset: (name, token, url) => ({ subject:'Reset your ShopSphere password', html:`<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto"><div style="background:linear-gradient(135deg,#1a1a2e,#16213e);padding:30px;text-align:center"><h1 style="color:#e94560;margin:0">ShopSphere</h1></div><div style="background:white;padding:30px"><h2>Password Reset</h2><p>Hello ${name}, click below to reset your password:</p><div style="text-align:center;margin:30px 0"><a href="${url}/reset-password/${token}" style="background:#e94560;color:white;padding:14px 30px;border-radius:6px;text-decoration:none;font-weight:bold">Reset Password</a></div></div></div>` }),
+  orderConfirmation: (name, order) => ({ subject:`Order Confirmed! #${order.orderNumber}`, html:`<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto"><div style="background:linear-gradient(135deg,#1a1a2e,#16213e);padding:30px;text-align:center"><h1 style="color:#e94560;margin:0">ShopSphere</h1></div><div style="background:white;padding:30px"><h2>✅ Order Confirmed!</h2><p>Hello ${name}, your order <strong>#${order.orderNumber}</strong> has been confirmed.</p><p><strong>Total:</strong> ₹${order.billing.total}</p></div></div>` }),
+};
+module.exports = { sendEmail, emailTemplates };

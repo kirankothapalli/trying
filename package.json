@@ -1,0 +1,19 @@
+{
+  "name": "shopsphere",
+  "version": "1.0.0",
+  "description": "ShopSphere Full-Stack E-Commerce Platform",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "seed": "cd backend && node seed.js",
+    "seed:reset": "cd backend && node seed.js --reset",
+    "test": "cd backend && npm test",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

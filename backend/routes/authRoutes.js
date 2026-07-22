@@ -1,0 +1,14 @@
+const express = require('express');
+const router = express.Router();
+const { register,login,logout,refreshToken,verifyEmail,forgotPassword,resetPassword,getMe } = require('../controllers/authController');
+const { protect } = require('../middleware/authMiddleware');
+const { registerValidator,loginValidator,forgotPasswordValidator,resetPasswordValidator } = require('../middleware/validationMiddleware');
+router.post('/register', registerValidator, register);
+router.post('/login', loginValidator, login);
+router.post('/logout', protect, logout);
+router.post('/refresh-token', refreshToken);
+router.get('/verify-email/:token', verifyEmail);
+router.post('/forgot-password', forgotPasswordValidator, forgotPassword);
+router.post('/reset-password/:token', resetPasswordValidator, resetPassword);
+router.get('/me', protect, getMe);
+module.exports = router;

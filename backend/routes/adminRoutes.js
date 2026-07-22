@@ -1,0 +1,12 @@
+const express = require('express');
+const router = express.Router();
+const { protect, authorize } = require('../middleware/authMiddleware');
+const { getDashboardStats,getAllUsers,updateUserRole,toggleUserStatus,getAllOrders,updateOrderStatus } = require('../controllers/mainController');
+router.use(protect, authorize('admin'));
+router.get('/dashboard', getDashboardStats);
+router.get('/users', getAllUsers);
+router.put('/users/:id/role', updateUserRole);
+router.put('/users/:id/toggle-status', toggleUserStatus);
+router.get('/orders', getAllOrders);
+router.put('/orders/:id/status', updateOrderStatus);
+module.exports = router;

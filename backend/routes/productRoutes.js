@@ -1,0 +1,15 @@
+const express = require('express');
+const router = express.Router();
+const { getProducts,getProduct,createProduct,updateProduct,deleteProduct,addReview,deleteReview,getFeaturedProducts,getRelatedProducts } = require('../controllers/productController');
+const { protect, authorize } = require('../middleware/authMiddleware');
+const { productValidator, reviewValidator } = require('../middleware/validationMiddleware');
+router.get('/featured', getFeaturedProducts);
+router.get('/', getProducts);
+router.get('/:identifier', getProduct);
+router.get('/:id/related', getRelatedProducts);
+router.post('/', protect, authorize('admin'), productValidator, createProduct);
+router.put('/:id', protect, authorize('admin'), updateProduct);
+router.delete('/:id', protect, authorize('admin'), deleteProduct);
+router.post('/:id/reviews', protect, reviewValidator, addReview);
+router.delete('/:id/reviews/:reviewId', protect, deleteReview);
+module.exports = router;
