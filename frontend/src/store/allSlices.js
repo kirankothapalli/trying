@@ -97,13 +97,13 @@ const productSlice = createSlice({
   },
   extraReducers: (b) => {
     b.addCase(fetchProducts.pending, (s) => { s.isLoading = true; s.error = null; })
-     .addCase(fetchProducts.fulfilled, (s, a) => { s.isLoading = false; s.items = a.payload.products; s.meta = a.payload.meta; })
+     .addCase(fetchProducts.fulfilled, (s, a) => { s.isLoading = false; s.items = a.payload?.products || []; s.meta = a.payload?.meta || null; })
      .addCase(fetchProducts.rejected, (s, a) => { s.isLoading = false; s.error = a.payload; })
      .addCase(fetchProductDetail.pending, (s) => { s.isLoading = true; s.currentProduct = null; })
      .addCase(fetchProductDetail.fulfilled, (s, a) => { s.isLoading = false; s.currentProduct = a.payload; })
      .addCase(fetchProductDetail.rejected, (s, a) => { s.isLoading = false; s.error = a.payload; })
-     .addCase(fetchFeaturedProducts.fulfilled, (s, a) => { s.featured = a.payload; })
-     .addCase(fetchCategories.fulfilled, (s, a) => { s.categories = a.payload; });
+     .addCase(fetchFeaturedProducts.fulfilled, (s, a) => { s.featured = a.payload || []; })
+     .addCase(fetchCategories.fulfilled, (s, a) => { s.categories = a.payload || []; });
   },
 });
 export const { setFilters, resetFilters, clearCurrentProduct } = productSlice.actions;
@@ -133,7 +133,7 @@ const orderSlice = createSlice({
      .addCase(createOrder.fulfilled, (s, a) => { s.isLoading = false; s.currentOrder = a.payload; })
      .addCase(createOrder.rejected, (s, a) => { s.isLoading = false; toast.error(a.payload); })
      .addCase(fetchMyOrders.pending, (s) => { s.isLoading = true; })
-     .addCase(fetchMyOrders.fulfilled, (s, a) => { s.isLoading = false; s.items = a.payload.orders; s.meta = a.payload.meta; })
+     .addCase(fetchMyOrders.fulfilled, (s, a) => { s.isLoading = false; s.items = a.payload?.orders || []; s.meta = a.payload?.meta || null; })
      .addCase(fetchMyOrders.rejected, (s) => { s.isLoading = false; })
      .addCase(fetchOrderById.fulfilled, (s, a) => { s.currentOrder = a.payload; })
      .addCase(cancelOrder.fulfilled, (s, a) => { const o = s.items.find((x) => x._id === a.payload); if (o) o.orderStatus = 'cancelled'; toast.success('Order cancelled'); })
