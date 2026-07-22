@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FiHeart } from 'react-icons/fi';
-import { fetchWishlist, selectWishlist } from '../store/slices/wishlistSlice';
+import { fetchWishlist, selectWishlist } from '../store/allSlices';
 import { ProductCard, EmptyState } from '../components/ui/LoadingScreen';
 
 export function Wishlist() {

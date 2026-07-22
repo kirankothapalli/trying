@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiHeart, FiShoppingCart, FiStar, FiX, FiAlertCircle } from 'react-icons/fi';
-import { addToCart, fetchCart } from '../../store/slices/cartSlice';
-import { toggleWishlist, selectIsInWishlist } from '../../store/slices/wishlistSlice';
+import { addToCart, fetchCart } from '../../store/allSlices';
+import { toggleWishlist, selectIsInWishlist } from '../../store/allSlices';
 import { selectIsAuthenticated } from '../../store/slices/authSlice';
 import toast from 'react-hot-toast';
 

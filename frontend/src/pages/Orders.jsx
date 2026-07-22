@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { FiPackage, FiChevronRight } from 'react-icons/fi';
-import { fetchMyOrders, selectOrders } from '../store/slices/orderSlice';
+import { fetchMyOrders, selectOrders } from '../store/allSlices';
 import { EmptyState, StatusBadge, Spinner } from '../components/ui/LoadingScreen';
 
 export default function Orders() {

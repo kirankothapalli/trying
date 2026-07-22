@@ -4,9 +4,9 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { FiCheckCircle, FiPackage, FiArrowRight } from 'react-icons/fi';
-import { fetchOrderById, selectOrders } from '../store/slices/orderSlice';
+import { fetchOrderById, selectOrders } from '../store/allSlices';
 import { useSelector } from 'react-redux';
-import { resetCart } from '../store/slices/cartSlice';
+import { resetCart } from '../store/allSlices';
 
 export function OrderSuccess() {
   const { id } = useParams();

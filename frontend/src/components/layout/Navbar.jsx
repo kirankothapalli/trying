@@ -7,9 +7,9 @@ import {
   FiLogOut, FiPackage, FiSettings, FiGrid,
 } from 'react-icons/fi';
 import { logoutUser, selectAuth, selectIsAdmin } from '../../store/slices/authSlice';
-import { selectCartCount } from '../../store/slices/cartSlice';
-import { selectWishlist } from '../../store/slices/wishlistSlice';
-import { fetchProducts, setFilters } from '../../store/slices/productSlice';
+import { selectCartCount } from '../../store/allSlices';
+import { selectWishlist } from '../../store/allSlices';
+import { fetchProducts, setFilters } from '../../store/allSlices';
 
 export default function Navbar() {
   const dispatch = useDispatch();

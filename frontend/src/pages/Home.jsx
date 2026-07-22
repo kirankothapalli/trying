@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiShield, FiTruck, FiRefreshCw, FiHeadphones } from 'react-icons/fi';
-import { fetchFeaturedProducts, fetchCategories, selectProducts } from '../store/slices/productSlice';
+import { fetchFeaturedProducts, fetchCategories, selectProducts } from '../store/allSlices';
 import { ProductCard, SkeletonCard } from '../components/ui/LoadingScreen';
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } };

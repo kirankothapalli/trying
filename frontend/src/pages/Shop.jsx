@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiFilter, FiX, FiChevronDown } from 'react-icons/fi';
-import { fetchProducts, selectProducts, setFilters, resetFilters } from '../store/slices/productSlice';
+import { fetchProducts, selectProducts, setFilters, resetFilters } from '../store/allSlices';
 import { ProductCard, SkeletonCard, Pagination, EmptyState } from '../components/ui/LoadingScreen';
 import { FiShoppingBag } from 'react-icons/fi';
 

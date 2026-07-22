@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiTrash2, FiMinus, FiPlus, FiShoppingBag, FiTag } from 'react-icons/fi';
-import { fetchCart, updateCartItem, removeFromCart, clearCart, applyCoupon, removeCoupon, selectCart } from '../store/slices/cartSlice';
+import { fetchCart, updateCartItem, removeFromCart, clearCart, applyCoupon, removeCoupon, selectCart } from '../store/allSlices';
 import { EmptyState } from '../components/ui/LoadingScreen';
 import { useState } from 'react';
 

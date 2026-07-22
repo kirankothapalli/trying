@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiArrowLeft, FiPackage } from 'react-icons/fi';
-import { fetchOrderById, cancelOrder, selectOrders } from '../store/slices/orderSlice';
+import { fetchOrderById, cancelOrder, selectOrders } from '../store/allSlices';
 import { StatusBadge, Spinner } from '../components/ui/LoadingScreen';
 import toast from 'react-hot-toast';
 
