@@ -5,7 +5,8 @@ const { sendEmail, emailTemplates } = require('../utils/emailUtils');
 const { sendSuccess, sendError, sanitizeUser } = require('../utils/helpers');
 
 const register = asyncHandler(async(req,res)=>{
-  const {name,email,password} = req.body;
+  let {name,email,password} = req.body;
+  if(email) email = email.toLowerCase();
   if(await User.findOne({email})) return sendError(res,409,'An account with this email already exists');
   const verificationToken = generateSecureToken();
   const user = await User.create({ name, email, password, emailVerificationToken:hashToken(verificationToken), emailVerificationExpire:Date.now()+24*60*60*1000 });
@@ -18,7 +19,8 @@ const register = asyncHandler(async(req,res)=>{
 });
 
 const login = asyncHandler(async(req,res)=>{
-  const {email,password} = req.body;
+  let {email,password} = req.body;
+  if(email) email = email.toLowerCase();
   const user = await User.findOne({email}).select('+password +refreshToken +loginAttempts +lockUntil');
   if(!user) return sendError(res,401,'Invalid email or password');
   if(user.isLocked) return sendError(res,423,'Account locked. Try again in 2 hours.');
@@ -64,7 +66,9 @@ const verifyEmail = asyncHandler(async(req,res)=>{
 });
 
 const forgotPassword = asyncHandler(async(req,res)=>{
-  const user=await User.findOne({email:req.body.email});
+  let email = req.body.email;
+  if(email) email = email.toLowerCase();
+  const user=await User.findOne({email});
   if(!user) return sendSuccess(res,200,'If that email exists, a reset link has been sent');
   const resetToken=generateSecureToken();
   user.resetPasswordToken=hashToken(resetToken); user.resetPasswordExpire=Date.now()+60*60*1000;
