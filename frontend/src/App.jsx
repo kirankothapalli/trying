@@ -93,6 +93,7 @@ export default function App() {
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
             <Route path="/orders/:id" element={<ProtectedRoute><OrderDetail /></ProtectedRoute>} />
+            <Route path="*" element={<NotFound />} />
           </Route>
 
           {/* Auth routes */}
@@ -117,10 +118,6 @@ export default function App() {
             <Route path="users" element={<AdminUsers />} />
             <Route path="categories" element={<AdminCategories />} />
             <Route path="coupons" element={<AdminCoupons />} />
-          </Route>
-
-          <Route path="*" element={<MainLayout />}>
-            <Route index element={<NotFound />} />
           </Route>
         </Routes>
       </Suspense>
