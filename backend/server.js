@@ -57,6 +57,18 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/coupons', couponRoutes);
 app.use('/api/reviews', reviewRoutes);
+
+// Temporary endpoint to seed the database
+app.get('/api/seed-trigger', async (req, res) => {
+  try {
+    const { seed } = require('./seed');
+    await seed(true);
+    res.json({ success: true, message: 'Database successfully seeded and reset!' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 app.use(notFound);
 app.use(errorHandler);
 const PORT = process.env.PORT || 5000;

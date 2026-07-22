@@ -339,14 +339,16 @@ const coupons = [
   },
 ];
 
-async function seed() {
+async function seed(resetFlag = false) {
   try {
     console.log('\n🌱 ShopSphere Database Seeder\n');
     console.log('📡 Connecting to MongoDB...');
-    await mongoose.connect(MONGO_URI);
+    if(mongoose.connection.readyState === 0) {
+      await mongoose.connect(MONGO_URI);
+    }
     console.log('✅ Connected!\n');
 
-    const reset = process.argv.includes('--reset');
+    const reset = process.argv.includes('--reset') || resetFlag;
 
     if (reset) {
       console.log('🗑️  Clearing existing data...');
@@ -463,14 +465,24 @@ async function seed() {
     console.log('   FLAT200   - ₹200 off (min ₹1999)');
     console.log('   SUMMER30  - 30% off (max ₹1000)');
     console.log('━'.repeat(50) + '\n');
-
-    await mongoose.connection.close();
-    process.exit(0);
+    
+    if (require.main === module) {
+      await mongoose.connection.close();
+      process.exit(0);
+    }
+    return true;
   } catch (error) {
     console.error('\n❌ Seeding failed:', error.message);
-    await mongoose.connection.close();
-    process.exit(1);
+    if (require.main === module) {
+      await mongoose.connection.close();
+      process.exit(1);
+    }
+    throw error;
   }
 }
 
-seed();
+if (require.main === module) {
+  seed();
+}
+
+module.exports = { seed };
